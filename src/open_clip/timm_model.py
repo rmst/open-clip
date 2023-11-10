@@ -147,6 +147,6 @@ class TimmModel(nn.Module):
             logging.warning('grad checkpointing not supported for this timm image tower, continuing without...')
 
     def forward(self, x):
-        x = self.trunk(x)
-        x = self.head(x)
-        return x
+        cls_token, tokens = self.trunk(x)
+        cls_token = self.head(cls_token)
+        return cls_token, tokens
